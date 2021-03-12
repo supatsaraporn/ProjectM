@@ -9,7 +9,7 @@
         <p>Wanna & Supat</p>
       </ion-label>
 
-      <ion-button size="small" slot="end" color="dark">
+      <ion-button size="small" slot="end" color="dark" (click)="openI()">
         <ion-icon slot="icon-only" name="information-outline" ></ion-icon>
       </ion-button>
     </ion-item>
@@ -27,7 +27,10 @@
   <ion-content>
     <ion-list>
       <ion-item [routerLink]="['/addarticle']">เพิ่มบทความ</ion-item>
-      <ion-item>Menu Item</ion-item>
+      <ion-item>
+        <ion-label>Dark Mode</ion-label>
+        <ion-toggle slot = "end" color="warning" (ionChange)='toggleTheme($event)'></ion-toggle>
+      </ion-item>
       <ion-item [routerLink]="['/welcome']">ออกจากระบบ</ion-item>
     </ion-list>
   </ion-content>
@@ -118,32 +121,11 @@
           <ion-col size="12">
             <ion-slides [options]="categories">
 
-              <ion-slide>
-                <ion-card class="category" color="danger">
+              <ion-slide *ngFor="let itemB of type">
+                <ion-card class="category" color="{{itemB.colorype}}">
                   <ion-card-header class="ion-text-center">
-                    <img src="assets/logo.gif">
-                    <ion-card-title>Food</ion-card-title>
-                    <ion-card-subtitle>Something here</ion-card-subtitle>
-                  </ion-card-header>
-                </ion-card>
-              </ion-slide>
-
-              <ion-slide>
-                <ion-card class="category" color="primary">
-                  <ion-card-header class="ion-text-center">
-                    <ion-icon src="assets/cocktail.svg"></ion-icon>
-                    <ion-card-title>Drink</ion-card-title>
-                    <ion-card-subtitle>Something here</ion-card-subtitle>
-                  </ion-card-header>
-                </ion-card>
-              </ion-slide>
-
-              <ion-slide>
-                <ion-card class="category" color="warning">
-                  <ion-card-header class="ion-text-center">
-                    <ion-icon src="assets/burger.svg"></ion-icon>
-                    <ion-card-title>Burger</ion-card-title>
-                    <ion-card-subtitle>Something here</ion-card-subtitle>
+                    <img src="assets/imgType/{{itemB.imgtype}}">
+                    <ion-card-subtitle>{{itemB.nametype}}</ion-card-subtitle>
                   </ion-card-header>
                 </ion-card>
               </ion-slide>

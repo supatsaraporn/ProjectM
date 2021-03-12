@@ -15,6 +15,7 @@ import { ToastController, LoadingController, Platform } from "@ionic/angular";
 export class HomePage {
 
   article: any;
+  type:any;
   subscription: any;
 
   options = {
@@ -33,6 +34,14 @@ export class HomePage {
     private ModalController: ModalController,
     public alertCtrl: AlertController,) {}
 
+  toggleTheme(event){
+    if(event.detail.checked){
+      document.body.setAttribute('color-theme','dark')
+    }else{
+      document.body.setAttribute('color-theme','light')
+    }
+  }
+
   openFirst() {
     this.menu.enable(true, 'first');
     this.menu.open('first');
@@ -40,13 +49,14 @@ export class HomePage {
 
   ionViewWillEnter(){
     this.getArticles();
+    this.getType();
 
   }
 
   async getArticles() {
     // show loader
     let loader = await this.loadingCtrl.create({
-      message: "กำลังโหลด..."
+      message: "Loading..."
     });
     loader.present();
 
@@ -75,6 +85,38 @@ export class HomePage {
       this.showToast(e);
     }
   }
+
+
+  async getType() {
+    // show loader
+    let loader = await this.loadingCtrl.create({
+      message: "Loading..."
+    });
+    loader.present();
+
+    try {
+      this.firestore
+        .collection("type")
+        .snapshotChanges()
+        .subscribe(data => {
+          this.type = data.map(e => {
+            return {
+              id: e.payload.doc.id,
+              nametype: e.payload.doc.data()["nametype"],
+              imgtype: e.payload.doc.data()["imgtype"],
+              colortype: e.payload.doc.data()["colortype"],
+            };
+          });
+
+          // dismiss loader
+          loader.dismiss();
+        });
+    } catch (e) {
+      this.showToast(e);
+    }
+  }
+
+
 
   showToast(message: string) {
     this.toastCtrl
@@ -126,6 +168,17 @@ export class HomePage {
 
     await alert.present();
 
+  }
+  async openI() {
+    const alert = await this.alertCtrl.create({
+      cssClass: 'my-custom-class',
+      header: 'Help?',
+      // subHeader: '',
+      // message: 'ffdf',
+      buttons: ['OK']
+    });
+
+    await alert.present();
   }
 
 }

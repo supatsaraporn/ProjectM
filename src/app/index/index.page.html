@@ -12,7 +12,7 @@
 
 <ion-content [fullscreen]="true">
 
-  <ion-searchbar></ion-searchbar>
+  <ion-searchbar  #search debounce="500" (ionChange)="_ionChange($event)"></ion-searchbar>
 
   <ion-grid class="ion-no-padding">
     <ion-row>

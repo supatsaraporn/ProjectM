@@ -15,6 +15,7 @@ export class IndexPage{
 
   article: any;
   subscription: any;
+  @ViewChild('search', { static: false }) search: IonSearchbar;
 
   constructor(private menu: MenuController , private toastCtrl: ToastController,
     private firestore: AngularFirestore,
@@ -25,6 +26,26 @@ export class IndexPage{
     ionViewWillEnter(){
       this.getArticles();
 
+    }
+
+    ionViewDidEnter() {
+      setTimeout(() => {
+        this.search.setFocus();
+      });
+    }
+
+
+
+    _ionChange(event) {
+      const val = event.target.value;
+
+      this.article;
+      if (val && val.trim() != '') {
+        this.article = this.article.filter((article: any) => {
+          return (article.title.toLowerCase().indexOf(val.toLowerCase()) > -1);
+        })
+      }
+      // this.search.getInputElement().then(item => console.log(item))
     }
 
     async getArticles() {
