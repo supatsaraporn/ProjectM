@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar color="warning">
+    <ion-title class="ion-text-center">เขียนบทความ</ion-title>
+    <ion-icon style="width: 40px; height: 30px;" name="arrow-back-circle-outline" (click)="BackMain()" slot="start"></ion-icon>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <ion-label position="floating">ชื่อบทความ</ion-label>
+    <ion-input type="text" [(ngModel)]="articles.title" required></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">ประเภท</ion-label>
+    <ion-textarea [(ngModel)]="articles.category" required></ion-textarea>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">เกริ่นนำ</ion-label>
+    <ion-textarea rows="6" cols="20"[(ngModel)]="articles.detail" required></ion-textarea>
+  </ion-item>
+
+  <ion-item color= "warning">
+    <ion-label position="floating">รายละเอียด</ion-label>
+    <ion-textarea rows="12" cols="30"[(ngModel)]="articles.detail2" required></ion-textarea>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">ลิงค์ต้นฉบับ</ion-label>
+    <ion-textarea [(ngModel)]="articles.link" required></ion-textarea>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">รูป</ion-label>
+    <ion-textarea [(ngModel)]="articles.image" required></ion-textarea>
+  </ion-item>
+
+  <ion-button
+    class="ion-padding"
+    color="dark"
+    expand="full"
+    (click)="createArticle(articles)"
+    >ADD</ion-button
+  >
+</ion-content>
